@@ -5,15 +5,15 @@
  * for optional depenencies.
  */
 import { parsePageId } from 'notion-utils'
-import { type PostHogConfig } from 'posthog-js'
+import type posthog from 'posthog-js'
 
 import { getEnv, getSiteConfig } from './get-config-value'
-import { type NavigationLink } from './site-config'
+import { NavigationLink } from './site-config'
 import {
-  type NavigationStyle,
-  type PageUrlOverridesInverseMap,
-  type PageUrlOverridesMap,
-  type Site
+  NavigationStyle,
+  PageUrlOverridesInverseMap,
+  PageUrlOverridesMap,
+  Site
 } from './types'
 
 export const rootNotionPageId: string = parsePageId(
@@ -55,23 +55,15 @@ export const language: string = getSiteConfig('language', 'en')
 
 // social accounts
 export const twitter: string | null = getSiteConfig('twitter', null)
-export const mastodon: string | null = getSiteConfig('mastodon', null)
 export const github: string | null = getSiteConfig('github', null)
 export const youtube: string | null = getSiteConfig('youtube', null)
 export const linkedin: string | null = getSiteConfig('linkedin', null)
+export const instagram: string | null = getSiteConfig('instagram', null)
+
+// Optional Cusdis widget https://cusdis.com
+// export const cusdis = getSiteConfig('cusdis', null)
 export const newsletter: string | null = getSiteConfig('newsletter', null)
 export const zhihu: string | null = getSiteConfig('zhihu', null)
-
-export const getMastodonHandle = (): string | null => {
-  if (!mastodon) {
-    return null
-  }
-
-  // Since Mastodon is decentralized, handles include the instance domain name.
-  // e.g. @example@mastodon.social
-  const url = new URL(mastodon)
-  return `${url.pathname.slice(1)}@${url.hostname}`
-}
 
 // default notion values for site-wide consistency (optional; may be overridden on a per-page basis)
 export const defaultPageIcon: string | null = getSiteConfig(
@@ -85,6 +77,12 @@ export const defaultPageCover: string | null = getSiteConfig(
 export const defaultPageCoverPosition: number = getSiteConfig(
   'defaultPageCoverPosition',
   0.5
+)
+
+// Optional utteranc.es comments via GitHub issue comments
+export const utterancesGitHubRepo: string | null = getSiteConfig(
+  'utterancesGitHubRepo',
+  null
 )
 
 // Optional whether or not to enable support for LQIP preview images
@@ -159,6 +157,7 @@ export const site: Site = {
   rootNotionSpaceId,
   description
 }
+export const GAId = isDev ? null : process.env.NEXT_PUBLIC_GA_ID
 
 export const fathomId = isDev ? null : process.env.NEXT_PUBLIC_FATHOM_ID
 export const fathomConfig = fathomId
@@ -168,7 +167,7 @@ export const fathomConfig = fathomId
   : undefined
 
 export const posthogId = process.env.NEXT_PUBLIC_POSTHOG_ID
-export const posthogConfig: Partial<PostHogConfig> = {
+export const posthogConfig: posthog.Config = {
   api_host: 'https://app.posthog.com'
 }
 
