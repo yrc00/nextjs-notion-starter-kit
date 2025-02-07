@@ -55,7 +55,8 @@ export default siteConfig({
   navigationLinks: [
     {
       title: 'About',
-      pageId: '19240ad3696480998785f0b1ffd527a7'
+      pageId: '19240ad3696480998785f0b1ffd527a7',
+      
     },
     {
       title: 'CV',
