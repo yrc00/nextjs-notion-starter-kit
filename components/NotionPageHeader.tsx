@@ -1,8 +1,9 @@
-import type * as types from 'notion-types'
+import * as React from 'react'
+
+import * as types from 'notion-types'
 import { IoMoonSharp } from '@react-icons/all-files/io5/IoMoonSharp'
 import { IoSunnyOutline } from '@react-icons/all-files/io5/IoSunnyOutline'
 import cs from 'classnames'
-import * as React from 'react'
 import { Breadcrumbs, Header, Search, useNotionContext } from 'react-notion-x'
 
 import { isSearchEnabled, navigationLinks, navigationStyle } from '@/lib/config'
@@ -10,7 +11,7 @@ import { useDarkMode } from '@/lib/use-dark-mode'
 
 import styles from './styles.module.css'
 
-function ToggleThemeButton() {
+const ToggleThemeButton = () => {
   const [hasMounted, setHasMounted] = React.useState(false)
   const { isDarkMode, toggleDarkMode } = useDarkMode()
 
@@ -32,11 +33,9 @@ function ToggleThemeButton() {
   )
 }
 
-export function NotionPageHeader({
-  block
-}: {
+export const NotionPageHeader: React.FC<{
   block: types.CollectionViewPageBlock | types.PageBlock
-}) {
+}> = ({ block }) => {
   const { components, mapPageUrl } = useNotionContext()
 
   if (navigationStyle === 'default') {

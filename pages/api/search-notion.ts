@@ -1,12 +1,9 @@
-import { type NextApiRequest, type NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-import type * as types from '../../lib/types'
+import * as types from '../../lib/types'
 import { search } from '../../lib/notion'
 
-export default async function searchNotion(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
     return res.status(405).send({ error: 'method not allowed' })
   }

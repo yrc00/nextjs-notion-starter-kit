@@ -14,22 +14,30 @@ export default siteConfig({
   author: 'Yerim',
 
   // open graph metadata (optional)
-  description: 'Yerim DevNote - The place where I share my knowledge and experience',
+  description: 'Yerim DevNote - This is my personal blog where I write about my learning journey and share my thoughts on various topics.',
 
   // social usernames (optional)
   // twitter: 'transitive_bs',
   github: 'yrc00',
-  linkedin: '예림-최-4623882b5',
+  // linkedin: 'fisch2',
   // mastodon: '#', // optional mastodon profile URL, provides link verification
   // newsletter: '#', // optional newsletter URL
   // youtube: '#', // optional youtube channel name or `channel/UCGbXXXXXXXXXXXXXXXXXXXXXX`
 
   // default notion icon and cover images for site-wide consistency (optional)
   // page-specific values will override these site-wide defaults
-  defaultPageIcon: 'https://www.notion.so/image/attachment%3A15aec9b7-d613-49bd-9f02-c4102bba1bd8%3Aavatar_small.png?table=block&id=19240ad3-6964-8021-994d-eab8af3308e5&spaceId=74d72aed-20c7-4845-8ef9-3da7107fec1e&width=250&userId=696885ec-a140-4fc8-8aee-69a463094eae&cache=v2',
+  defaultPageIcon: null,
   defaultPageCover: null,
   defaultPageCoverPosition: 0.5,
 
+  // Utteranc.es comments via GitHub issue comments (optional)
+  // utterancesGitHubRepo: 'hanmilLee/nextjs-notion-starter-kit',
+ 
+  // Cusdis comment widget (optional)
+  // cusdis: {
+  //   appId: 'd39a1dc4-5580-4ad8-8d75-c6a486475b5a' // your website id
+  // },
+  
   // whether or not to enable support for LQIP preview images (optional)
   isPreviewImageSupportEnabled: true,
 
@@ -49,14 +57,18 @@ export default siteConfig({
   pageUrlOverrides: null,
 
   // whether to use the default notion navigation style or a custom one with links to
-  // important pages. To use `navigationLinks`, set `navigationStyle` to `custom`.
-  // navigationStyle: 'default'
+  // important pages
+  
+  // navigationStyle: 'default',
   navigationStyle: 'custom',
   navigationLinks: [
     {
+      title: 'Home',
+      pageId: '19240ad369648021994deab8af3308e5'
+    },
+    {
       title: 'About',
-      pageId: '19240ad3696480998785f0b1ffd527a7',
-      
+      pageId: '19240ad3696480998785f0b1ffd527a7'
     },
     {
       title: 'CV',
@@ -65,6 +77,6 @@ export default siteConfig({
     {
       title: 'Category',
       pageId: '19240ad369648002a8dbd058c0960c3d'
-    }
+    },
   ]
-})
+})  

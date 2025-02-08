@@ -1,22 +1,19 @@
-import cs from 'classnames'
+import * as React from 'react'
 import dynamic from 'next/dynamic'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { type PageBlock } from 'notion-types'
+
+import cs from 'classnames'
+import { PageBlock } from 'notion-types'
 import { formatDate, getBlockTitle, getPageProperty } from 'notion-utils'
-import * as React from 'react'
 import BodyClassName from 'react-body-classname'
-import {
-  type NotionComponents,
-  NotionRenderer,
-  useNotionContext
-} from 'react-notion-x'
-import { EmbeddedTweet, TweetNotFound, TweetSkeleton } from 'react-tweet'
+import { NotionRenderer } from 'react-notion-x'
+// import TweetEmbed from 'react-tweet-embed'
 import { useSearchParam } from 'react-use'
 
-import type * as types from '@/lib/types'
 import * as config from '@/lib/config'
+import * as types from '@/lib/types'
 import { mapImageUrl } from '@/lib/map-image-url'
 import { getCanonicalPageUrl, mapPageUrl } from '@/lib/map-page-url'
 import { searchNotion } from '@/lib/search-notion'
@@ -24,6 +21,8 @@ import { useDarkMode } from '@/lib/use-dark-mode'
 
 import { Footer } from './Footer'
 import { GitHubShareButton } from './GitHubShareButton'
+import { ReactUtterances } from './ReactUtterances'
+// import { ReactCusdis } from 'react-cusdis'
 import { Loading } from './Loading'
 import { NotionPageHeader } from './NotionPageHeader'
 import { Page404 } from './Page404'
@@ -38,7 +37,7 @@ import styles from './styles.module.css'
 const Code = dynamic(() =>
   import('react-notion-x/build/third-party/code').then(async (m) => {
     // add / remove any prism syntaxes here
-    await Promise.allSettled([
+    await Promise.all([
       import('prismjs/components/prism-markup-templating.js'),
       import('prismjs/components/prism-markup.js'),
       import('prismjs/components/prism-bash.js'),
@@ -100,16 +99,9 @@ const Modal = dynamic(
   }
 )
 
-function Tweet({ id }: { id: string }) {
-  const { recordMap } = useNotionContext()
-  const tweet = (recordMap as types.ExtendedTweetRecordMap)?.tweets?.[id]
-
-  return (
-    <React.Suspense fallback={<TweetSkeleton />}>
-      {tweet ? <EmbeddedTweet tweet={tweet} /> : <TweetNotFound />}
-    </React.Suspense>
-  )
-}
+// const Tweet = ({ id }: { id: string }) => {
+//   return <TweetEmbed tweetId={id} />
+// }
 
 const propertyLastEditedTimeValue = (
   { block, pageHeader },
@@ -152,25 +144,24 @@ const propertyTextValue = (
   return defaultFn()
 }
 
-export function NotionPage({
+export const NotionPage: React.FC<types.PageProps> = ({
   site,
   recordMap,
   error,
   pageId
-}: types.PageProps) {
+}) => {
   const router = useRouter()
   const lite = useSearchParam('lite')
 
-  const components = React.useMemo<Partial<NotionComponents>>(
+  const components = React.useMemo(
     () => ({
-      nextLegacyImage: Image,
+      nextImage: Image,
       nextLink: Link,
       Code,
       Collection,
       Equation,
       Pdf,
       Modal,
-      Tweet,
       Header: NotionPageHeader,
       propertyLastEditedTimeValue,
       propertyTextValue,
@@ -248,9 +239,69 @@ export function NotionPage({
     block
   )
 
+  // const forhit = `https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=${canonicalPageUrl}&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true`
+
   const socialDescription =
     getPageProperty<string>('Description', block, recordMap) ||
     config.description
+
+  let comments: React.ReactNode = null
+
+  // let pageAside: React.ReactChild = (
+  //   <div>
+  //     <br></br>
+  //     <img src={forhit} />
+  //   </div>
+  // )
+
+  // only display comments and page actions on blog post pages
+  if (isBlogPost) {
+    if (config.utterancesGitHubRepo) {
+      comments = (
+        <ReactUtterances
+          repo={config.utterancesGitHubRepo}
+          issueMap='issue-term'
+          issueTerm='title'
+          theme={isDarkMode ? 'photon-dark' : 'github-light'}
+        />
+      )
+      // } else if (config.cusdis) {
+      //   if (!config.cusdis.appId) {
+      //     console.warn('[cusdis]', 'appId is required')
+      //   }
+      //   comments = darkMode.value ? (
+      //     <ReactCusdis
+      //       style={{
+      //         width: '100%',
+      //         marginTop: '30px'
+      //       }}
+      //       attrs={{
+      //         host: config.cusdis.host || 'https://cusdis.com',
+      //         appId: config.cusdis.appId,
+      //         pageId: pageId,
+      //         pageTitle: title,
+      //         pageUrl: canonicalPageUrl,
+      //         theme: 'dark'
+      //       }}
+      //     ></ReactCusdis>
+      //   ) : (
+      //     <ReactCusdis
+      //       style={{
+      //         width: '100%',
+      //         marginTop: '30px'
+      //       }}
+      //       attrs={{
+      //         host: config.cusdis.host || 'https://cusdis.com',
+      //         appId: config.cusdis.appId,
+      //         pageId: pageId,
+      //         pageTitle: title,
+      //         pageUrl: canonicalPageUrl,
+      //         theme: 'light'
+      //       }}
+      //     ></ReactCusdis>
+      //   )
+    }
+  }
 
   return (
     <>
@@ -286,6 +337,7 @@ export function NotionPage({
         defaultPageCoverPosition={config.defaultPageCoverPosition}
         mapPageUrl={siteMapPageUrl}
         mapImageUrl={mapImageUrl}
+        pageFooter={comments}
         searchNotion={config.isSearchEnabled ? searchNotion : null}
         pageAside={pageAside}
         footer={footer}

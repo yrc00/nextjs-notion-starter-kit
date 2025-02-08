@@ -1,9 +1,11 @@
+import * as React from 'react'
+
 import styles from './styles.module.css'
 
-export function GitHubShareButton() {
+export const GitHubShareButton: React.FC = () => {
   return (
     <a
-      href='https://github.com/transitive-bullshit/nextjs-notion-starter-kit'
+      href='https://github.com/yrc00/nextjs-notion-starter-kit'
       target='_blank'
       rel='noopener noreferrer'
       className={styles.githubCorner}
@@ -14,7 +16,7 @@ export function GitHubShareButton() {
         height='80'
         viewBox='0 0 250 250'
         style={{
-          fill: '#70B7FD',
+          fill: '#000',
           color: '#fff',
           position: 'absolute',
           zIndex: 1001,
