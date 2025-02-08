@@ -19,7 +19,7 @@ export default siteConfig({
   // social usernames (optional)
   // twitter: 'transitive_bs',
   github: 'yrc00',
-  // linkedin: 'fisch2',
+  linkedin: '예림-최-4623882b5',
   // mastodon: '#', // optional mastodon profile URL, provides link verification
   // newsletter: '#', // optional newsletter URL
   // youtube: '#', // optional youtube channel name or `channel/UCGbXXXXXXXXXXXXXXXXXXXXXX`
@@ -31,7 +31,7 @@ export default siteConfig({
   defaultPageCoverPosition: 0.5,
 
   // Utteranc.es comments via GitHub issue comments (optional)
-  // utterancesGitHubRepo: 'hanmilLee/nextjs-notion-starter-kit',
+  // utterancesGitHubRepo: 'yrc00/nextjs-notion-starter-kit',
  
   // Cusdis comment widget (optional)
   // cusdis: {
