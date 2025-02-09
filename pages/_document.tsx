@@ -1,7 +1,5 @@
-import * as React from 'react'
-import Document, { Head, Html, Main, NextScript } from 'next/document'
-
 import { IconContext } from '@react-icons/all-files'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
   render() {
@@ -9,22 +7,8 @@ export default class MyDocument extends Document {
       <IconContext.Provider value={{ style: { verticalAlign: 'middle' } }}>
         <Html lang='en'>
           <Head>
-            <meta
-              name='google-site-verification'
-              content='aNd2jqcYjaSoe2g15jUFAdwxSgadssXEPffqKl6JzuQ'
-            />
-            <link rel='shortcut icon' href='/favicon.png' />
-            <link
-              rel='apple-touch-icon'
-              sizes='256x256'
-              href='/favicon-256x256.png'
-            />
-            <link
-              rel='icon'
-              type='image/png'
-              sizes='128x128'
-              href='/favicon-128x128.png'
-            />
+            <meta name="google-site-verification" content="aNd2jqcYjaSoe2g15jUFAdwxSgadssXEPffqKl6JzuQ" />
+            <link rel='shortcut icon' href='/favicon.ico' />
             <link
               rel='icon'
               type='image/png'

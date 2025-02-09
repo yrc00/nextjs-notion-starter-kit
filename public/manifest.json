@@ -8,19 +8,14 @@
       "sizes": "32x32"
     },
     {
-      "src": "/4212916_education_note_notes_student_icon-2.png",
-      "type": "image/png",
-      "sizes": "64x64"
-    },
-    {
-      "src": "/4212916_education_note_notes_student_icon-3.png",
+      "src": "/favicon-128x128.png",
       "type": "image/png",
       "sizes": "128x128"
     },
     {
-      "src": "/4212916_education_note_notes_student_icon-4.png",
-      "sizes": "256x256",
-      "type": "image/png"
+      "src": "/favicon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
     }
   ],
   "theme_color": "#000000",

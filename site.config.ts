@@ -79,4 +79,4 @@ export default siteConfig({
       pageId: '19240ad369648002a8dbd058c0960c3d'
     },
   ]
-})  
+});
